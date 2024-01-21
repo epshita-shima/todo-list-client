@@ -1,0 +1,50 @@
+
+.menu-btn {
+    color: black;
+    font-size: 20px;
+ }
+ title{
+     background: green;
+ }
+ .dropdown-menu {
+    position: relative;
+    display: inline-block;
+ }
+ /* .dropdown-menu  >*:first-child{
+  background:red;
+ } */
+ 
+ .menu-content {
+    display: none;
+    position: absolute;
+    background: gray;
+    min-width: 140px;
+    z-index: 1;
+ }
+ 
+ .links {
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: block;
+    font-size: 14px;
+    border-bottom: 1px solid rgb(208, 204, 204);
+ }
+ 
+ /* .dropdown-menu:hover .menu-btn {
+    background-color: #3e8e41;
+ } */
+ /* For Webkit browsers (e.g., Chrome, Safari) */
+::-webkit-scrollbar {
+   width: 8px;
+ }
+ 
+ ::-webkit-scrollbar-track {
+   background-color: #f1f1f1;
+ }
+ 
+ ::-webkit-scrollbar-thumb {
+   background-color: #888;
+   border-radius: 6px;
+ }
+ 
