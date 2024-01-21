@@ -2,6 +2,7 @@ import React from 'react'
 import ShowTask from '../components/ui/ShowTask'
 import AddTask from '../redux/features/AddTask/AddTask'
 import { useState } from "react";
+import Footer from './Footer';
 const MainViewPage = () => {
     const [showModal, setShowModal] = useState(false);
     const [showUpdate,setShowUpdate]=useState(false)
@@ -31,7 +32,10 @@ const MainViewPage = () => {
                   setDeleteTaskModal={setDeleteTaskModal}
                   columnName={columnName}
                   setColumnName={setColumnName}
-              ></ShowTask></>
+              ></ShowTask>
+                <Footer></Footer>
+              </>
+            
       }
     </div>
   )
