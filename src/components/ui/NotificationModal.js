@@ -18,6 +18,7 @@ const NotificationModal = ({ setNotificationModal, countNotification }) => {
   const [notificationData,setNotificationData] = useState([]);
   const dispatch = useDispatch();
   const tasks = useSelector((state) => state.boardview);
+  const [data,setData]=useState([])
   useEffect(() => {
     const mergeResult = [].concat(
       tasks.toDo.items,
@@ -28,13 +29,15 @@ const NotificationModal = ({ setNotificationModal, countNotification }) => {
     );
     const filterNotificationData=mergeResult.filter((data)=>(data.markNotification == "" ||  data.markNotification == 'viewed'))
     setNotificationData(filterNotificationData)
+    setData(mergeResult)
   }, [
     tasks.toDo.items,
     tasks.inProgress.items,
     tasks.unitTest.items,
     tasks.qualityAssurance.items,
     tasks.completed.items,
-    setNotificationData
+    setNotificationData,
+    setData
   ]);
   useEffect(() => {
     dispatch(fetchTasks());
@@ -138,28 +141,32 @@ const handleNotificationViewData=async(data)=>{
             <div className="relative flex-auto justify-between items-center mx-auto rounded-xl p-4">
               {notificationData?.map((item, index) => {
 
-                // const findMatchingIndices = (data, countNotification) => {
-                //   const matchingIndices = [];
-                //   data.forEach((element, index) => {
-                //     if (countNotification.includes(element)) {
-                //       matchingIndices.push(index + 1);
-                //     }
-                //   });
-                //   return matchingIndices;
-                // };
+                const findMatchingIndices = (data, notificationData) => {
+                  const matchingIndices = [];
+                  data.forEach((element, index) => {
+                    if (notificationData.includes(element)) {
+                      matchingIndices.push(index + 1);
+                    }
+                  });
+                  return matchingIndices;
+                };
 
-                // const matchingIndices = findMatchingIndices(
-                //   data,
-                //   countNotification
-                // );
+                const matchingIndices = findMatchingIndices(
+                  data,
+                  notificationData
+                );
+                console.log(matchingIndices)
                 return (
                   <div className={` flex justify-between   items-center  text-black border-b-2  px-4 py-2 ${item.markNotification =="" ? 'bg-slate-200' : 'bg-white' }`}>
-                    <div className="w-[70%]">
-                      
-                        Task No: That is in previous State was <span className="text-red-500">{item.priviousStatus}</span>&nbsp; 
-                        and present state <span className="text-red-500">{item.status}</span>&nbsp;
-                        state is
-                        <mark> {item.task}</mark>&nbsp;
+                    <div className="w-[70%]"> 
+                     {
+                      item.status !=='' ? (   <p>Task No: <span className="text-red-600 font-bold">{matchingIndices[index]}</span> That is in previous State was <span className="text-red-500"> {item.priviousStatus}</span>&nbsp; 
+                      and present state <span className="text-red-500">{item.status}</span>&nbsp;
+                      state is
+                      <mark> {item.task}</mark>&nbsp;</p>) :(<p>Task No: New task added 
+                        task name is
+                        <mark> {item.task}</mark>&nbsp;</p>)
+                     }
                       
                       {/* time will expired within 2 days */}
                     </div>
